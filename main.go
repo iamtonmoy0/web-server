@@ -5,6 +5,17 @@ import (
 	"log"
 	"net/http"
 )
+func formHandler(w http.ResponseWriter , r http.Request){
+	if err := r.ParseForm(); err != nil {
+		fmt.Fprintf(w, "PerseForm() err : %v",err)
+		return
+	}
+	fmt.Fprintf(w, "Post request success")
+	name := r.FormValue("name")
+	address :=r.FormValue("address")
+	fmt.Fprintf(w,"name = %s\n", name)
+	fmt.Fprintf(w, "Address =%s\n" ,address)
+}
 func helloHandler(w http.ResponseWriter , r http.Request){
 	if r.URL.Path != "./hello" {
 		http.Error(
